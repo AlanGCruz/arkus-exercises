@@ -28,9 +28,9 @@
   </div>
 
   <ul id="pagination" class="pagination">
-    <li><a><i class="material-icons">chevron_left</i></a></li>
+    <li @click="firstPage" class="waves-effect"><a href="" onclick="return false;"><i class="material-icons">chevron_left</i></a></li>
     <li @click="changePage(i)" v-for="i in total_pages"><a href="" onclick="return false;">{{ i }}</a></li>
-    <li class="waves-effect"><a href=""><i class="material-icons">chevron_right</i></a></li>
+    <li @click="lastPage()" class="waves-effect"><a onclick="return false;"><i class="material-icons">chevron_right</i></a></li>
   </ul>
 
   <a class="btn-floating btn-large waves-effect waves-light red" 
@@ -68,7 +68,6 @@ export default {
       .then(response => {
         this.usersList = response.body.data;
         this.total_pages = response.body.total_pages;
-
       });
   },
   methods: {
@@ -85,6 +84,18 @@ export default {
     },
     changePage(page) {
       this.$http.get('https://reqres.in/api/users?page=' + page)
+        .then(response => {
+          this.usersList = response.body.data;
+        });
+    },
+    firstPage() {
+      this.$http.get('https://reqres.in/api/users?page=1')
+        .then(response => {
+          this.usersList = response.body.data;
+        });
+    },
+    lastPage() {
+      this.$http.get('https://reqres.in/api/users?page=' + this.total_pages)
         .then(response => {
           this.usersList = response.body.data;
         });
