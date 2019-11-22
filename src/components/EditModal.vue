@@ -48,6 +48,7 @@ export default {
     editUser() {
       this.$http.put('https://reqres.in/api/users/' + this.user.id, this.user)
         .then(response => {
+          this.$store.commit('incrementEdited')
           alert(JSON.stringify(response.body));
         });
     }

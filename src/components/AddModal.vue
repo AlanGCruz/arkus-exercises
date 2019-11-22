@@ -50,6 +50,7 @@ export default {
     addUser() {
       this.$http.post('https://reqres.in/api/user', this.user)
         .then(response => {
+          this.$store.commit('incrementCreated');
           alert(JSON.stringify(response.body));
         });
     }
